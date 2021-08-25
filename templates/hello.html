@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script defer>
+const  exec = () => {
+    console.log('submitting');
+    let form = document.getElementById('form')
+    var formData = new FormData(form);
+    axios.post('http://localhost:5000/request', formData)
+        .then(response => {
+            let element = document.getElementById('output').innerText = response['data']
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+        })
+
+}
+    </script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+</head>
+<body>
+    <div class="md:w-1/2 mx-6 md:mx-auto">
+        <form id="form">
+            <h2 class="text-2xl mt-12">Header here</h2>
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Voltage 1" type="number" step="0.00000001" name="v1">
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Voltage 2" type="number" step="0.00000001" name="v2">
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Voltage 3" type="number" step="0.00000001" name="v3">
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Current 1" type="number" step="0.00000001" name="i1">
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Current 2" type="number" step="0.00000001" name="i2">
+            <input class="block w-full bg-gray-300 rounded p-3 my-3" placeholder="Current 3" type="number" step="0.00000001" name="i3">
+        </form>
+        <button class="rounded w-full block px-3 py-2 bg-blue-600 hover:bg-blue-800 text-white mb-12" onclick="exec()">Submit</button>
+        <div class="mx-auto mt-12 text-center text-2xl text-blue-500" id="output">
+            
+        </div>
+    </div>
+</body>
+</html>
