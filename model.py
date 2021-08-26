@@ -20,7 +20,16 @@ def predict(data):
     from sklearn.svm import SVC
     model = SVC(C=512,gamma=0.5)
     model.fit(X_train,Y_train)
+
+    import pickle
+    pickled_model = pickle.dumps(model)
+    
     print(model.score(X_test,Y_test))
+    # SERILAZING THE MODEL AND SAVE IT TO DATABASE TO REUSE IT 
+    import sqlite3 as sql
+    with sql.connect("database.db") as con:
+        query = 'insert into models values (?, ?)'
+        con.execute(query,[model,pickled_model] )
     print('predictng')
     return model.predict(data)
 
